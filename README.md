@@ -1,38 +1,40 @@
-### simple-ssh-proxy
+## simple-ssh-proxy
 
 This is a simple SSH proxy container. Deploy it into your Docker network to
 forward ports of hidden services, such as database.
 
-#### Requirements
+### Requirements
 
 Docker
 
-#### Installing
+### Usage
 
-For now, clone the Git repository and build the image locally,
-or if you are using Docker Compose, you can set the `build` attribute
-to the repository's URL (see below). I will try to put this on Docker Hub soon,
-then it will be easier.
-
-#### Usage
-
-##### CLI
+#### CLI
 ```bash
 docker run -d \
     -p 2222:22 \
     -v /path/to/host/.ssh/:/home/proxy_user/.ssh/
-    simple-ssh-proxy
+    sainthilaire/simple-ssh-proxy:0.1.0
 ```
 
-##### Docker Compose
+#### Docker Compose
 
 ```yaml
 services:
   # ...
   my_proxy_service:
-    build: https://github.com/saint-hilaire/simple-ssh-proxy.git
+    image: sainthilaire/simple-ssh-proxy:0.1.0
     ports:
       - "2222:22"
     volumes:
       - "/path/to/host/.ssh/:/home/proxy_user/.ssh/"
 ```
+
+#### Setup
+
+For now, some manual setup is required on the server before you can use it:
+
+* The host volume that gets mounted into the container's
+  `/home/proxy_user/.ssh/` needs to have a valid `authorized_keys` file.
+* In the container, make sure that `/home/proxy_user/.ssh/` belongs
+  to `proxy_user:proxy_user`.
