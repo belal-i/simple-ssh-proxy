@@ -1,14 +1,14 @@
-FROM ubuntu:20.04
+FROM alpine:latest
 
+LABEL version="0.2.0-dev"
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
-RUN useradd -m proxy_user && \
-    apt-get update && \
-    apt-get install -y openssh-server && \
+RUN apk add openssh doas && \
+    adduser -D proxy_user && \
+    passwd -u proxy_user && \
     chmod +x /docker-entrypoint.sh
 
 EXPOSE 22
 
-ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
-CMD while true; do echo "default arg" && sleep 1; done
+ENTRYPOINT ["/docker-entrypoint.sh"]
