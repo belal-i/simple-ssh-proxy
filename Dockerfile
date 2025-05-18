@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-LABEL version="0.2.0-rc-1"
+LABEL version="0.2.0"
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
