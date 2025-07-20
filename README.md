@@ -14,7 +14,7 @@ Docker
 docker run -d \
     -p 2222:22 \
     -v /path/to/host/.ssh/:/home/proxy_user/.ssh/
-    sainthilaire/simple-ssh-proxy:0.2.0
+    belalibrahim/simple-ssh-proxy:latest
 ```
 
 #### Docker Compose
@@ -23,7 +23,7 @@ docker run -d \
 services:
   # ...
   my_proxy_service:
-    image: sainthilaire/simple-ssh-proxy:0.2.0
+    image: belalibrahim/simple-ssh-proxy:latest
     ports:
       - "2222:22"
     volumes:
